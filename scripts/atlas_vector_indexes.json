@@ -1,0 +1,56 @@
+{
+  "memories": {
+    "name": "memory_vector_index",
+    "definition": {
+      "fields": [
+        {
+          "type": "vector",
+          "path": "embedding",
+          "numDimensions": 1024,
+          "similarity": "cosine"
+        },
+        {
+          "type": "filter",
+          "path": "user_id"
+        },
+        {
+          "type": "filter",
+          "path": "workspace_id"
+        },
+        {
+          "type": "filter",
+          "path": "status"
+        },
+        {
+          "type": "filter",
+          "path": "type"
+        }
+      ]
+    }
+  },
+  "episodes": {
+    "name": "episode_vector_index",
+    "definition": {
+      "fields": [
+        {
+          "type": "vector",
+          "path": "embedding",
+          "numDimensions": 1024,
+          "similarity": "cosine"
+        },
+        {
+          "type": "filter",
+          "path": "user_id"
+        },
+        {
+          "type": "filter",
+          "path": "workspace_id"
+        },
+        {
+          "type": "filter",
+          "path": "status"
+        }
+      ]
+    }
+  }
+}

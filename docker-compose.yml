@@ -1,0 +1,40 @@
+# Default: backend + frontend against MongoDB Atlas (MONGODB_URI in .env).
+#   docker compose up --build            -> http://localhost:8080
+# Fully local alternative with Vector Search (mongod + mongot, evaluation only):
+#   docker compose --profile local-atlas up --build
+#   and set MONGODB_URI=mongodb://mongodb:27017/?directConnection=true in .env
+services:
+  backend:
+    build: ./backend
+    env_file: .env
+    environment:
+      PORT: "8000"
+    ports:
+      - "8000:8000"
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/api/health')"]
+      interval: 15s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
+  frontend:
+    build: ./frontend
+    ports:
+      - "8080:8080"
+    depends_on:
+      - backend
+    restart: unless-stopped
+
+  mongodb:
+    profiles: ["local-atlas"]
+    # Pin a specific version tag for reproducible setups (see Docker Hub: mongodb/mongodb-atlas-local).
+    image: ${ATLAS_LOCAL_IMAGE:-mongodb/mongodb-atlas-local:preview}
+    hostname: mongodb
+    ports:
+      - "27017:27017"
+    volumes:
+      - memora-data:/data/db
+
+volumes:
+  memora-data:
