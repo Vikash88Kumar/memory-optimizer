@@ -238,7 +238,7 @@ python scripts/setup_db.py
 cd backend
 uvicorn app.main:app --reload --port 8000
 ```
-Backend API will be running at [http://localhost:8000](http://localhost:8000) (Interactive Swagger Docs at `/docs`).
+Backend API will be running at [https://memory-optimizer.onrender.com](https://memory-optimizer.onrender.com) (Interactive Swagger Docs at `/docs`).
 
 ### 3. Frontend Setup
 In a new terminal window:
@@ -247,7 +247,7 @@ cd frontend
 npm install
 npm run dev
 ```
-Frontend interface will be running at [http://localhost:5173](http://localhost:5173).
+Frontend interface will be running at [https://memory-optimizer-1.onrender.com/](https://memory-optimizer-1.onrender.com/).
 
 ---
 
@@ -265,7 +265,7 @@ Frontend interface will be running at [http://localhost:5173](http://localhost:5
    - **Dockerfile Path**: `Dockerfile`
 3. Environment Variables:
    - Set `MONGODB_URI`, `LLM_PROVIDER`, `OPENAI_API_KEY`, `OPENAI_BASE_URL`, `CHAT_MODEL`, `EXTRACTOR_MODEL`, `EMBEDDING_PROVIDER`, `AUTH_SECRET`, `PORT=8000`.
-   - Set `CORS_ORIGINS=https://your-frontend.onrender.com,http://localhost:5173`.
+   - Set `CORS_ORIGINS=https://memory-optimizer-1.onrender.com/`.
 
 #### Frontend Site (Render Static Site)
 1. Click **New +** → **Static Site** → Select your repo.
