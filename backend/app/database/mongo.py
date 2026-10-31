@@ -3,6 +3,7 @@ from __future__ import annotations
 
 from typing import Any
 
+import certifi
 from pymongo import AsyncMongoClient
 
 from app.core.config import Settings
@@ -26,7 +27,10 @@ def get_db() -> Any:
 
 async def connect(settings: Settings) -> Any:
     global _client, _db
-    _client = AsyncMongoClient(settings.mongodb_uri, tz_aware=True, appname="memora")
+    kwargs: dict[str, Any] = {"tz_aware": True, "appname": "memora"}
+    if "mongodb+srv://" in settings.mongodb_uri or "tls=true" in settings.mongodb_uri.lower():
+        kwargs["tlsCAFile"] = certifi.where()
+    _client = AsyncMongoClient(settings.mongodb_uri, **kwargs)
     await _client.admin.command("ping")
     _db = _client[settings.mongodb_db]
     log.info("Connected to MongoDB database=%s", settings.mongodb_db)
